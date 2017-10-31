@@ -36,7 +36,8 @@ public class ABTNode {
   /**Contructor de un nodo.
    * Solo cuando es una hoja
    * 
-   */public ABTNode(ABTNode father,char etiqueta,String key,int value){
+   */
+  public ABTNode(ABTNode father,char etiqueta,String key,int value){
     this.isLeaf=1; //este es el constructor para hojas
     this.izq=null;
     this.der=null;
@@ -48,8 +49,11 @@ public class ABTNode {
      
   }
 
+  /**
+   * Metodo que entrega la etiqueta del nodo (diferente a la key)
+   * @return etiqueta del nodo
+   */
   public char getEtiqueta() {
-    // TODO Auto-generated method stub
     return this.etiqueta;
   }
   
@@ -88,5 +92,36 @@ public class ABTNode {
         return false;
       }
     }
+  }
+  
+  
+  /**
+   * agregar un valor a la lista de valores para una llave determinada
+  
+   * @param val : valor a agregar a la key
+   */
+  public void addValue(int val){
+
+    //si no es una hoja no debería estar agregando un valor.
+    if(this.isLeaf==0){
+      System.out.println("Esta tratando de poner un valor en un nodo que no es hoja!");
+      return; 
+    }
+    else{
+      this.values.add(val);
+    }
+  }
+
+  /**
+   * Metodo que entrega la llave asociada a este nodo.
+   * @return retorna la llave de este nodo
+   */
+  public String getKey(){
+    if(this.isLeaf==0){
+      System.out.println("se esta intentando ver una llave de un nodo que no es hoja");
+      return null;
+    }
+    else
+      return this.key;
   }
 }
