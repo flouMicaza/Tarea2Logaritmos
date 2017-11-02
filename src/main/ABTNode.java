@@ -58,15 +58,21 @@ public class ABTNode {
   }
   
   
-  public boolean busquedaAux(String palabra,int indice){
+  public ArrayList<Integer> busquedaAux(String palabra,int indice){
+	 //TODO revisar si los indices estan bien contados cuando se retorna.  
+	 
     //si la etiqueda del nodo que estoy visitando es igual a la letra que estoy buscando
     //busco en el del centro
     if(this.getEtiqueta()==palabra.charAt(indice)){
       if(this.center!=null){ //si aun quedan ramas por recorrer
         return this.center.busquedaAux(palabra,indice+1);
       }
-      else{ //si el hijo es nulo, entonces el string no esta
-        return false;
+      else if (indice==palabra.length()){ //si el hijo es nulo, entonces el string no esta
+        return this.values;
+      }
+      
+      else{
+    	  return null;
       }
     }
     
@@ -77,9 +83,11 @@ public class ABTNode {
         return this.der.busquedaAux(palabra, indice);
       }
       
-      else { //si el hijo es nulo entonces no esta
-        return false;
+      else if(indice==palabra.length()){ //si el hijo es nulo y llegue al final
+        return this.values;
       }
+      
+      else return null;
     }
     
     //si la etiqueta del nodo que estoy visitando es mayor a la letra que estoy viendo
@@ -88,9 +96,10 @@ public class ABTNode {
       if(this.izq!=null){
         return this.izq.busquedaAux(palabra, indice);
       }
-      else{ //si tengo que buscar a la izq pero no hay nada, entonces el string no esta
-        return false;
+      else if(indice==palabra.length()){ //si tengo que buscar a la izq pero no hay nada, entonces el string no esta
+        return this.values;
       }
+      else return null;
     }
   }
   
@@ -102,7 +111,7 @@ public class ABTNode {
    */
   public void addValue(int val){
 
-    //si no es una hoja no debería estar agregando un valor.
+    //si no es una hoja no deberï¿½a estar agregando un valor.
     if(this.isLeaf==0){
       System.out.println("Esta tratando de poner un valor en un nodo que no es hoja!");
       return; 
@@ -124,4 +133,17 @@ public class ABTNode {
     else
       return this.key;
   }
+
+public boolean insertarNodo(String palabra, int value,int indice) {
+	//hacer busqueda en el nodo.
+	//si la encuentra hacemos addValue donde quedamos.
+	//si le falta por recorrer, lo que sobro lo insertamos como en un trie
+	//
+	
+	//TODO hacer lafuncion insertar entera
+	
+	
+	return false;
+
+}
 }
