@@ -64,15 +64,17 @@ public class ABTNode {
     //si la etiqueda del nodo que estoy visitando es igual a la letra que estoy buscando
     //busco en el del centro
     if(this.getEtiqueta()==palabra.charAt(indice)){
-      if(this.center!=null){ //si aun quedan ramas por recorrer
-        return this.center.busquedaAux(palabra,indice+1);
-      }
-      else if (indice==palabra.length()){ //si el hijo es nulo, entonces el string no esta
-        return this.values;
-      }
+    	if(palabra.length()-1==indice){ //o indice -1????
+    		//encontre la palabra
+    		return this.values;
+    	}
+    	else if(this.center!=null){ //si aun quedan ramas por recorrer
+    		return this.center.busquedaAux(palabra,indice+1);
+    	}
       
-      else{
-    	  return null;
+      
+    	else{ //ya no quedan mas ramas por recorrer
+    		return new ArrayList<Integer>();
       }
     }
     
@@ -83,25 +85,21 @@ public class ABTNode {
         return this.der.busquedaAux(palabra, indice);
       }
       
-      else if(indice==palabra.length()){ //si el hijo es nulo y llegue al final
-        return this.values;
+      else{  //ya no queda nada por recorrer asi que devuelvo vacio
+    	  return new ArrayList<Integer>();
       }
       
-      else return null;
     }
     
     //si la etiqueta del nodo que estoy visitando es mayor a la letra que estoy viendo
     //voy a buscar al hijo izquierdo
     else { //if(this.getEtiqueta()>palabra.charAt(indice))
-      if(this.izq!=null){
+      if(this.izq!=null){ //aun quedan ramas por recorrer
         return this.izq.busquedaAux(palabra, indice);
       }
-      else if(indice==palabra.length()){ //si tengo que buscar a la izq pero no hay nada, entonces el string no esta
-        return this.values;
-      }
-      else return null;
+      else return new ArrayList<Integer>();
     }
-  }
+ }
   
   
   /**
