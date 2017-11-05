@@ -132,16 +132,63 @@ public class ABTNode {
       return this.key;
   }
 
-public boolean insertarNodo(String palabra, int value,int indice) {
-	//hacer busqueda en el nodo.
-	//si la encuentra hacemos addValue donde quedamos.
-	//si le falta por recorrer, lo que sobro lo insertamos como en un trie
-	//
-	
-	//TODO hacer lafuncion insertar entera
-	
-	
-	return false;
+public void insertarNodo(String palabra, int value,int indice) {
 
+   //si las letras son iguales, busco en el centro
+	if(this.getEtiqueta()==palabra.charAt(indice)){
+	  //si la palabra ya esta, le agregamos el valor a la lista de sus valores
+	  if(indice-1==palabra.length()){
+	    this.addValue(value);
+	  }
+	  
+	  //si  puedo seguir buscando
+	  if(this.center!=null){
+
+	      this.center.insertarNodo(palabra, value, indice+1);
+	      return;
+	  }
+	  //si ya no la encontre
+	  else{
+	    //creo la cadena con todas las letras
+	    this.center.crearTrie(palabra,value,indice);
+	    return;
+	  }
+	}
+	
+	//si la etiqueta es menor a la letra de la palabra:
+	else if(this.getEtiqueta()<palabra.charAt(indice)){
+	  if(this.der!=null){
+	    this.der.insertarNodo(palabra, value, indice);
+	  }
+	  
+	  else{
+	    this.der.crearTrie(palabra, value, indice);
+	  }
+	}
+	
+	// si la etiqueta es mayor a  la letra de la palabra:
+	else{
+	  if(this.izq!=null){
+	    this.izq.insertarNodo(palabra, value, indice);	
+	  }
+	  else{
+	    this.crearTrie(palabra, value, indice);
+	  }
+	}
 }
+
+
+/**
+ * Metodo que crea un arbol en que cada nodo tiene una letra de la palbra restante
+ * desde el indice al final.
+ * @param palabra palabra a insertar
+ * @param value valor asociado a la palabra
+ * @param indice indice desde el cual empezamos a agregar
+ */
+public void crearTrie(String palabra, int value, int indice) {
+  // TODO Auto-generated method stub
+  
+}
+
+
 }
