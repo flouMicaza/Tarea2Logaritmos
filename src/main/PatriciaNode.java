@@ -17,7 +17,7 @@ public class PatriciaNode {
   }
   
   //Constructor para la raiz
-  public PatriciaNode(String key){
+  public PatriciaNode(String key){	
     this.key = key;
     this.childs = new ArrayList<PatriciaNode>();
     this.father = null;
