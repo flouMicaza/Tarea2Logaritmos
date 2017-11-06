@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 //Arbol de busqueda ternario
 public class ABT {
-  ABTNode root; 
+  public ABTNode root; 
   
   //se crea un arbol conociendo la primera palabra
   public ABT(String palabra,int value){

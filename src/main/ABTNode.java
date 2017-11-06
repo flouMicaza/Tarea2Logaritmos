@@ -14,9 +14,9 @@ public class ABTNode {
   String key; //llave del diccionario
   ArrayList<Integer> values; //valores asociados a la llave
   ABTNode izq;
-  ABTNode der;
-  ABTNode center;
-  ABTNode father; //porsiacaso se necesita para algun arbol
+  public ABTNode der;
+  public ABTNode center;
+  public ABTNode father; //porsiacaso se necesita para algun arbol
   int isLeaf;
   
   /**Contructor de un nodo.
@@ -30,6 +30,7 @@ public class ABTNode {
     this.center=null;
     this.father=father;
     this.etiqueta=etiqueta;
+    this.values=new ArrayList<Integer>();
     
   }
 
@@ -45,6 +46,7 @@ public class ABTNode {
     this.father=father;
     this.etiqueta=etiqueta;
     this.key=key;
+    this.values= new ArrayList<Integer>();
     this.values.add(value);
      
   }
@@ -109,14 +111,10 @@ public class ABTNode {
    */
   public void addValue(int val){
 
-    //si no es una hoja no deber�a estar agregando un valor.
-    if(this.isLeaf==0){
-      System.out.println("Esta tratando de poner un valor en un nodo que no es hoja!");
-      return; 
-    }
-    else{
+    //si no es una hoja no deberia estar agregando un valor.
+    
       this.values.add(val);
-    }
+    
   }
 
   /**
@@ -187,6 +185,8 @@ public void insertarNodo(String palabra, int value,int indice) {
  */
 public void crearTrie(String palabra, int value, int indice,String lado) {  
   if(lado=="Center"){
+    System.out.println("el indice en crear trie es:" + indice);
+    System.out.println("la letra a insertar es: " + palabra.charAt(indice));
     this.center=new ABTNode(this,palabra.charAt(indice));
     if(indice==palabra.length()-1){
      //terminamos de agregar palabras, retornamos
