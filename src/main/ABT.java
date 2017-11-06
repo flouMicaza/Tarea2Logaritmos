@@ -12,7 +12,7 @@ public class ABT {
     this.root=new ABTNode(null,palabra.charAt(0));
     
     //se insertan todas las letras de la palabra en el nodo, desde la segunda letra
-    this.root.crearTrie(palabra,value,1);
+    this.root.crearTrie(palabra,value,1,"Center");
    
   }
   
