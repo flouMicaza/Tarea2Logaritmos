@@ -21,13 +21,17 @@ public class NullPatriciaNode implements PatriciaNodeI{
   
   //Si se llego al final se crea un nuevo nodo con la cadena restante y se inserta en el padre 
   public void insertar(String palabra, int value){
-    PatriciaNode pNode = new PatriciaNode(palabra, father);
-    pNode.addValue(value);
-    father.childs.add(pNode);
+    father.addValue(value);
+    return;
   }
 
   @Override
   public String getKey() {
     return this.key;
+  }
+
+  @Override
+  public void setKey(String key) {
+    return;
   }
 }

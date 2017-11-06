@@ -13,6 +13,7 @@ public class PatriciaNode implements PatriciaNodeI{
 	this.key = key;
 	this.appearances = new ArrayList<Integer>();
 	this.childs = new ArrayList<PatriciaNodeI>();
+	childs.add(new NullPatriciaNode(this));
 	this.father = father;
   }
   
@@ -20,6 +21,7 @@ public class PatriciaNode implements PatriciaNodeI{
   public PatriciaNode(String key){	
     this.key = key;
     this.childs = new ArrayList<PatriciaNodeI>();
+    childs.add(new NullPatriciaNode(this));
     this.father = null;
   }
 
@@ -46,7 +48,19 @@ public class PatriciaNode implements PatriciaNodeI{
 	      node.insertar(palabra.substring(len, palabra.length() - 1), value);
 	      return;
 	    }
-	    //TODO Caso en que no coincida completamente la cadena
+	    //Se calcula el prefijo maximo
+	    String prefijo = minPrefijo(palabra, key);
+	    //Se crean lo nuevos nodos
+	    PatriciaNode pNode1 = new PatriciaNode(palabra.substring(prefijo.length(), palabra.length() - 1), (PatriciaNode) node);
+	    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length() - 1), (PatriciaNode) node);
+	    //Se cambian los hijos de el nodo actual a uno de los nuevos nodos
+	    pNode2.childs.addAll(childs);
+	    PatriciaNode node2 = (PatriciaNode) node;
+	    //Se limpia los hijos de este nodo y se agregan los dos nuevos creados
+	    node2.childs = new ArrayList<PatriciaNodeI>();
+	    node2.childs.add(pNode1);
+	    node2.childs.add(pNode2);
+	    node.setKey(prefijo);
 	  }
 	}
     //Se crea el nodo y se inserta en los hjos
@@ -56,7 +70,23 @@ public class PatriciaNode implements PatriciaNodeI{
   }
   
   
-  
+  //Devuelve el prefijo mayor
+  private String minPrefijo(String palabra, String key2) {
+    int min = (palabra.length() < key2.length())?palabra.length():key2.length();
+    int prefijo = 0;
+    //Recorro los strings hasta encontrar una letra en que difieran
+    for (int i = 1; i < min; i++) {
+	  if(palabra.substring(i).equals(key2.substring(i))){
+	    prefijo++;
+	  }
+	  else{
+	    break;
+	  }
+	}
+    //Retorno el prefijo maximo
+    return key2.substring(prefijo);
+  }
+
   public void addValue(int value){
     this.appearances.add(value);
   }
@@ -64,5 +94,10 @@ public class PatriciaNode implements PatriciaNodeI{
   @Override
   public String getKey() {
     return this.key;
+  }
+
+  @Override
+  public void setKey(String key) {
+    this.key = key;
   }
 }
