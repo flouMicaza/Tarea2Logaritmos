@@ -12,7 +12,12 @@ public class Patricia {
   
   //La busqueda se realiza en los nodos
   public ArrayList<Integer> busqueda(String palabra) {
-	return root.busqueda(palabra);
+	return root.buscar(palabra);
+  }
+  
+  //La insercion se realiza en los nodos
+  public void insertar(String palabra, int value){
+    root.insertar(palabra, value);
   }
   
 }
