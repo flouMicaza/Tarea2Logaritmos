@@ -132,16 +132,103 @@ public class ABTNode {
       return this.key;
   }
 
-public boolean insertarNodo(String palabra, int value,int indice) {
-	//hacer busqueda en el nodo.
-	//si la encuentra hacemos addValue donde quedamos.
-	//si le falta por recorrer, lo que sobro lo insertamos como en un trie
-	//
-	
-	//TODO hacer lafuncion insertar entera
-	
-	
-	return false;
+public void insertarNodo(String palabra, int value,int indice) {
 
+   //si las letras son iguales, busco en el centro
+	if(this.getEtiqueta()==palabra.charAt(indice)){
+	  //si la palabra ya esta, le agregamos el valor a la lista de sus valores
+	  if(indice==palabra.length()-1){
+	    this.addValue(value);
+	  }
+	  
+	  //si  puedo seguir buscando
+	  if(this.center!=null){
+
+	      this.center.insertarNodo(palabra, value, indice+1);
+	      return;
+	  }
+	  //si ya no la encontre
+	  else{
+	    //creo la cadena con todas las letras
+	    this.crearTrie(palabra,value,indice,"Center");
+	    return;
+	  }
+	}
+	
+	//si la etiqueta es menor a la letra de la palabra:
+	else if(this.getEtiqueta()<palabra.charAt(indice)){
+	  if(this.der!=null){
+	    this.der.insertarNodo(palabra, value, indice);
+	  }
+	  
+	  else{
+	    this.crearTrie(palabra, value, indice,"Der");
+	  }
+	}
+	
+	// si la etiqueta es mayor a  la letra de la palabra:
+	else{
+	  if(this.izq!=null){
+	    this.izq.insertarNodo(palabra, value, indice);	
+	  }
+	  else{
+	    this.crearTrie(palabra, value, indice,"Izq");
+	  }
+	}
 }
+
+
+/**
+ * Metodo que crea un arbol en que cada nodo tiene una letra de la palbra restante
+ * desde el indice al final.
+ * @param palabra palabra a insertar
+ * @param value valor asociado a la palabra
+ * @param indice indice desde el cual empezamos a agregar
+ */
+public void crearTrie(String palabra, int value, int indice,String lado) {  
+  if(lado=="Center"){
+    this.center=new ABTNode(this,palabra.charAt(indice));
+    if(indice==palabra.length()-1){
+     //terminamos de agregar palabras, retornamos
+     this.center.addValue(value);
+     return;
+    }
+    
+    else{
+      //agregamos el resto de las letras de la palabra
+      this.center.crearTrie(palabra, value, indice+1, "Center");
+      return;
+    }
+  }
+  
+  else if(lado=="Der"){
+    this.der=new ABTNode(this,palabra.charAt(indice));
+    if(indice==palabra.length()-1){
+      //terminamos de agregar palabras, retornamos
+      this.der.addValue(value);
+      return;
+    }
+    else{
+
+      this.der.crearTrie(palabra, value, indice+1, "Center");
+      return; 
+    }
+  }
+  //lado == Izq
+  else{
+    this.izq=new ABTNode(this,palabra.charAt(indice));
+    if(indice==palabra.length()-1){
+      //terminamos de agregar palabras, retornamos
+      this.izq.addValue(value);
+      return;
+    }
+    else{
+
+      this.izq.crearTrie(palabra, value, indice+1, "Center");
+      return; 
+    }
+  }
+}
+
+
 }

@@ -6,11 +6,14 @@ import java.util.ArrayList;
 public class ABT {
   ABTNode root; 
   
-  
-  public ABT(){
+  //se crea un arbol conociendo la primera palabra
+  public ABT(String palabra,int value){
     //TODO crear bien el constructor del Arbol
-    this.root=new ABTNode(null,'$');
+    this.root=new ABTNode(null,palabra.charAt(0));
     
+    //se insertan todas las letras de la palabra en el nodo, desde la segunda letra
+    this.root.crearTrie(palabra,value,1,"Center");
+   
   }
   
   /**
@@ -18,12 +21,18 @@ public class ABT {
    * @return True y lo encuentra, False si no lo encuentra
    */
   public ArrayList<Integer> busqueda(String palabra){
-    palabra.charAt(0); //metodo para sacar el iesimo de la palabra    
     return root.busquedaAux(palabra, 0);
   }
   
-  public boolean insertar(String palabra, int value){
-	  return this.root.insertarNodo(palabra,value,0);
+  /**
+   * Método que inserta una keyword y un valor
+   * @param palabra string keyword
+   * @param value valor asociado a la llave
+   * 
+   */  
+  public void insertar(String palabra, int value){
+	//inserta la llave y el valor.   
+    this.root.insertarNodo(palabra,value,0);
   }
 
 }
