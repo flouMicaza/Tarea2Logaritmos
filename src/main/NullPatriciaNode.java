@@ -34,4 +34,9 @@ public class NullPatriciaNode implements PatriciaNodeI{
   public void setKey(String key) {
     return;
   }
+
+  @Override
+  public boolean isNullNode() {
+    return true;
+  }
 }

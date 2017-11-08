@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 public class PatriciaNode implements PatriciaNodeI{
   String key;
-  ArrayList<Integer> appearances;
-  ArrayList<PatriciaNodeI> childs;
+  public ArrayList<Integer> appearances;
+  public ArrayList<PatriciaNodeI> childs;
   PatriciaNode father;
 
   //Constructor para nodos no raiz
-  public PatriciaNode(String key, PatriciaNode father){
+  public PatriciaNode(String key, PatriciaNode father, int value){
 	this.key = key;
 	this.appearances = new ArrayList<Integer>();
+	this.addValue(value);
 	this.childs = new ArrayList<PatriciaNodeI>();
 	childs.add(new NullPatriciaNode(this));
 	this.father = father;
@@ -30,8 +31,8 @@ public class PatriciaNode implements PatriciaNodeI{
 	for (PatriciaNodeI node : childs) {
 	  len = node.getKey().length();
 	  //Si coincide la llave con el siguiente prefijo de la palabra entonces hacemos recursion
-      if (node.getKey().equals(palabra.substring(len - 1))) {
-        return node.buscar(palabra.substring(len, palabra.length() - 1));
+      if (node.getKey().equals(palabra.substring(0, len ))) {
+        return node.buscar(palabra.substring(len, palabra.length()));
 	  }
 	}
     return new ArrayList<Integer>();
@@ -39,32 +40,40 @@ public class PatriciaNode implements PatriciaNodeI{
 
   public void insertar(String palabra, int value) {
     int len;
+    String key;
     for (PatriciaNodeI node : childs) {
+      key = node.getKey();
       len = key.length();
-      //Si la primera letra cincide se analizan algunos casos
-	  if(key.charAt(0) == palabra.charAt(0)){
-		//Caso en que la cadena coincida, se hace recurcion en el nodo
-	    if(key.equals(palabra.substring(len - 1))){
-	      node.insertar(palabra.substring(len, palabra.length() - 1), value);
-	      return;
-	    }
-	    //Se calcula el prefijo maximo
-	    String prefijo = minPrefijo(palabra, key);
-	    //Se crean lo nuevos nodos
-	    PatriciaNode pNode1 = new PatriciaNode(palabra.substring(prefijo.length(), palabra.length() - 1), (PatriciaNode) node);
-	    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length() - 1), (PatriciaNode) node);
-	    //Se cambian los hijos de el nodo actual a uno de los nuevos nodos
-	    pNode2.childs.addAll(childs);
-	    PatriciaNode node2 = (PatriciaNode) node;
-	    //Se limpia los hijos de este nodo y se agregan los dos nuevos creados
-	    node2.childs = new ArrayList<PatriciaNodeI>();
-	    node2.childs.add(pNode1);
-	    node2.childs.add(pNode2);
-	    node.setKey(prefijo);
-	  }
-	}
+      if(!key.equals("")){
+	      //Si la primera letra coincide se analizan algunos casos
+		  if(key.charAt(0) == palabra.charAt(0)){
+			//Caso en que la cadena coincida, se hace recurcion en el nodo
+		    if(len <= palabra.length() && key.equals(palabra.substring(0, len))){
+		      node.insertar(palabra.substring(len, palabra.length()), value);
+		      return;
+		    }
+		    //Se calcula el prefijo maximo
+		    String prefijo = minPrefijo(palabra, key);
+		    //Se crean lo nuevos nodos
+		    PatriciaNode pNode1 = new PatriciaNode(palabra.substring(prefijo.length(), palabra.length()), (PatriciaNode) node, value);
+		    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length()), (PatriciaNode) node, value);
+		    //Se cambian los hijos de el nodo actual a uno de los nuevos nodos
+		    pNode2.childs.addAll(childs);
+		    PatriciaNode node2 = (PatriciaNode) node;
+		    //Se limpia los hijos de este nodo y se agregan los dos nuevos creados
+		    node2.childs = new ArrayList<PatriciaNodeI>();
+		    node2.childs.add(pNode1);
+		    node2.childs.add(pNode2);
+		    node.setKey(prefijo);
+		  }
+		}
+      else {
+        if(node.isNullNode())
+          node.insertar(palabra, value);
+      }
+    }
     //Se crea el nodo y se inserta en los hjos
-    PatriciaNode pNode = new PatriciaNode(palabra, this);
+    PatriciaNode pNode = new PatriciaNode(palabra, this, value);
     pNode.addValue(value);
     childs.add(pNode);
   }
@@ -76,7 +85,7 @@ public class PatriciaNode implements PatriciaNodeI{
     int prefijo = 0;
     //Recorro los strings hasta encontrar una letra en que difieran
     for (int i = 1; i < min; i++) {
-	  if(palabra.substring(i).equals(key2.substring(i))){
+	  if(palabra.substring(i, i + 1).equals(key2.substring(i, i + 1))){
 	    prefijo++;
 	  }
 	  else{
@@ -84,7 +93,7 @@ public class PatriciaNode implements PatriciaNodeI{
 	  }
 	}
     //Retorno el prefijo maximo
-    return key2.substring(prefijo);
+    return key2.substring(0, prefijo + 1);
   }
 
   public void addValue(int value){
@@ -99,5 +108,10 @@ public class PatriciaNode implements PatriciaNodeI{
   @Override
   public void setKey(String key) {
     this.key = key;
+  }
+
+  @Override
+  public boolean isNullNode() {
+    return false;
   }
 }
