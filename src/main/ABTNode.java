@@ -60,7 +60,7 @@ public class ABTNode {
   }
   
   
-  public ArrayList<Integer> busquedaAux(String palabra,int indice){
+  public ArrayList<Integer> busqueda(String palabra,int indice){
 	   
 	 
     //si la etiqueda del nodo que estoy visitando es igual a la letra que estoy buscando
@@ -71,7 +71,7 @@ public class ABTNode {
     		return this.values;
     	}
     	else if(this.center!=null){ //si aun quedan ramas por recorrer
-    		return this.center.busquedaAux(palabra,indice+1);
+    		return this.center.busqueda(palabra,indice+1);
     	}
       
       
@@ -84,7 +84,7 @@ public class ABTNode {
     //voy a buscar al hijo derecho
     else if(this.getEtiqueta()<palabra.charAt(indice)){
       if(this.der!=null){ //si aun quedan ramas por recorrer
-        return this.der.busquedaAux(palabra, indice);
+        return this.der.busqueda(palabra, indice);
       }
       
       else{  //ya no queda nada por recorrer asi que devuelvo vacio
@@ -97,7 +97,7 @@ public class ABTNode {
     //voy a buscar al hijo izquierdo
     else { //if(this.getEtiqueta()>palabra.charAt(indice))
       if(this.izq!=null){ //aun quedan ramas por recorrer
-        return this.izq.busquedaAux(palabra, indice);
+        return this.izq.busqueda(palabra, indice);
       }
       else return new ArrayList<Integer>();
     }
@@ -122,25 +122,22 @@ public class ABTNode {
    * @return retorna la llave de este nodo
    */
   public String getKey(){
-    if(this.isLeaf==0){
-      System.out.println("se esta intentando ver una llave de un nodo que no es hoja");
-      return null;
-    }
-    else
+   
       return this.key;
   }
 
 public void insertarNodo(String palabra, int value,int indice) {
-
-   //si las letras son iguales, busco en el centro
+  //si las letras son iguales, busco en el centro
+ 
 	if(this.getEtiqueta()==palabra.charAt(indice)){
 	  //si la palabra ya esta, le agregamos el valor a la lista de sus valores
 	  if(indice==palabra.length()-1){
 	    this.addValue(value);
+	    return;
 	  }
 	  
 	  //si  puedo seguir buscando
-	  if(this.center!=null){
+	  else if(this.center!=null){
 
 	      this.center.insertarNodo(palabra, value, indice+1);
 	      return;
@@ -185,8 +182,7 @@ public void insertarNodo(String palabra, int value,int indice) {
  */
 public void crearTrie(String palabra, int value, int indice,String lado) {  
   if(lado=="Center"){
-    System.out.println("el indice en crear trie es:" + indice);
-    System.out.println("la letra a insertar es: " + palabra.charAt(indice));
+    
     this.center=new ABTNode(this,palabra.charAt(indice));
     if(indice==palabra.length()-1){
      //terminamos de agregar palabras, retornamos

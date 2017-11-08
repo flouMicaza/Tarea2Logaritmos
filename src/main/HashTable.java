@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-public class HashTable {
+public class HashTable extends Arbol {
   int largo; //largo de la tabla
   int llenado;
   String[] tabla; //tabla con las llaves
@@ -12,6 +12,7 @@ public class HashTable {
     this.llenado=0;
     this.tabla= new String[largo];
     this.valores=new Dicc<ArrayList<Integer>>(largo);
+    
   }
   
   
@@ -28,8 +29,8 @@ public class HashTable {
     }
   }
   
-  public ArrayList<Integer> buscar(String palabra){
-    int indice = this.Hash(palabra); //calculamos la posición en la que debería ir
+  public ArrayList<Integer> busqueda(String palabra){
+    int indice = this.Hash(palabra); //calculamos la posiciï¿½n en la que deberï¿½a ir
     while(this.tabla[indice]!=null){ //buscamos la palabra en la tabla hasta que ya no hayan palabras.
       if(this.tabla[indice].equals(palabra)){ //si encontramos la palabra que buscamos
         //encontre la palabra
@@ -44,14 +45,46 @@ public class HashTable {
   }
   
   
+  //funcion que inserta una palabra y un valor al diccionario
+  //si la tabla esta al 40% la duplico y luego inserto. 
   public void insertar(String palabra, int valor){
-    //TODO hacer funcion insertar
+    //si hay un 40% llenado, entonces tengo que ampliar la tabla
+    if(this.llenado==(0.4*this.largo)){
+      this.dublicarTabla();
+    }
+    
+    int indice = Hash(palabra); //indice de donde deberï¿½a ir la palabra
+    
+    //si hay un valor y es el mismo valor q yo, agrego nomas
+    if(this.tabla[indice]!= null && this.tabla[indice].equals(palabra)){
+      this.valores.setValor(indice, valor);  //agrego el valor a la lista de valores
+      return; 
+    }
+    else if(this.tabla[indice]==null){ //si hay un espacio vacio
+      this.tabla[indice]=palabra; //agrego la llave a la tabla
+      this.valores.set(indice, new ArrayList<Integer>()); //creo la lista de valores
+      this.valores.setValor(indice, valor);  //agrego el valor a la lista de valores
+      return;
+    }
+    //si mi espacio esta ocupado, o no encontre mi palabra en ese espacio
+    else{
+      //mientras no encuentre un espacio vacio sigo
+      while(this.tabla[indice]!=null){
+        indice=(indice+1)%this.largo;
+      }
+      
+      //encontre un espacio vacio. 
+      this.tabla[indice]=palabra;
+      this.valores.set(indice, new ArrayList<Integer>());
+      this.valores.setValor(indice, valor);  
+        
+    }    
   }
 
   /**
-   * Funcion de hash que transforma la palabra en un número y luego encuentra su posición en el arreglo
+   * Funcion de hash que transforma la palabra en un nï¿½mero y luego encuentra su posiciï¿½n en el arreglo
    * @param a = palabra a insertar
-   * @return la posición en el arreglo
+   * @return la posiciï¿½n en el arreglo
    */
   public int Hash(String a){
     int stringsize = a.length();
