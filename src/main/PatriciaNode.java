@@ -31,9 +31,11 @@ public class PatriciaNode implements PatriciaNodeI{
 	int len;
 	for (PatriciaNodeI node : childs) {
 	  len = node.getKey().length();
+	  if(node.isNullNode() && palabra.length() == 0){
+	    return node.buscar(palabra.substring(len, palabra.length()));
+	  }
 	  //Si coincide la llave con el siguiente prefijo de la palabra entonces hacemos recursion
-	  //TODO ojo con el len, puede ser mayor que el largo de la palabra
-      if (len <= palabra.length() && node.getKey().equals(palabra.substring(0, len))) {
+      if (!node.isNullNode() && len <= palabra.length() && node.getKey().equals(palabra.substring(0, len))) {
         return node.buscar(palabra.substring(len, palabra.length()));
 	  }
 	}
@@ -46,6 +48,10 @@ public class PatriciaNode implements PatriciaNodeI{
     for (PatriciaNodeI node : childs) {
       key = node.getKey();
       len = key.length();
+	  if(node.isNullNode() && palabra.length() == 0){
+	    node.insertar(palabra.substring(len, palabra.length()), value);
+	    return;
+	  }
       if(!palabra.equals("") && !node.isNullNode()){
 	      //Si la primera letra coincide se analizan algunos casos
 		  if(key.charAt(0) == palabra.charAt(0)){
@@ -74,11 +80,6 @@ public class PatriciaNode implements PatriciaNodeI{
 		    return;
 		  }
 		}
-      else {
-        if(node.isNullNode())
-          node.insertar(palabra, value);
-        return;
-      }
     }
     //Se crea el nodo y se inserta en los hjos
     PatriciaNode pNode = new PatriciaNode(palabra, this, value);

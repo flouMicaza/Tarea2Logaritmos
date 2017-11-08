@@ -73,7 +73,7 @@ public class PatriciaTest {
   public void insertarMuchosTest(){
     for(int i = 0 ; i<palabras.length; i++){
       tree2.insertar(palabras[i], 1);
-      System.out.println(palabras[i]);
+      System.out.println(i);
     if(palabras[i]=="este$"){
       contEste++;
     }
@@ -95,7 +95,7 @@ public class PatriciaTest {
   
   @Test
   public void busquedaTest(){
-    for (int i = 2000; i < 7000; i++) {
+    for (int i = 0; i < 7000; i++) {
       tree2.insertar(palabras[i], 1);
 	}
     tree2.insertar("estebanquito$", 2);
@@ -106,6 +106,24 @@ public class PatriciaTest {
     assertEquals("Debe tener los valores 2 3 y 4", 2, (int)valores.get(0));
     assertEquals("Debe tener los valores 2 3 y 4", 4, (int)valores.get(1));
     assertEquals("Debe tener los valores 2 3 y 4", 3, (int)valores.get(2));
+  }
+  
+  @Test
+  public void superBusquedaTest(){
+    for (int i = 0; i < palabras.length; i++) {
+    	if (i==8665){
+    		System.out.println(palabras[i]);
+    	}
+      tree2.insertar(palabras[i], 1);
+	}
+    int cnt = 0;
+    for (int i = 0; i < palabras.length; i++) {
+    	int c = tree2.busqueda(palabras[i]).size();
+    	if (c==0){
+    		cnt=i;
+    	}
+  	}
+    System.out.println(cnt);
   }
 
 }
