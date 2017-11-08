@@ -38,17 +38,20 @@ public class Experimento {
 	  public static void generarABTs(int i, String[] palabras, ABT arbol, PrintWriter printerABT){
 	    float timeABT = 0;
 	    long timeIni, timeOut;
-	    while (i < 30) {
+	    while (i < 20) {
 	      timeIni = System.currentTimeMillis();
 	      arbol.insertar(palabras[i], i);
 	      System.out.println(palabras[i]);
 	      System.out.println(i);
 	      timeOut = System.nanoTime();
-	      timeABT += timeOut-timeIni;
+	      double currentTime = (timeOut-timeIni)/1000000000.0;
+	      timeABT += currentTime;
+	      printerABT.write(Double.toString(currentTime));
+		  printerABT.write(System.lineSeparator());
 	      i++;
 	    }
-	    timeABT /= 1000000000.0;
-	    printerABT.write("Tiempo de insercion :" + timeABT + "  segundos");
+	    printerABT.write(System.lineSeparator());
+	    printerABT.write(Float.toString(timeABT));
 	    printerABT.write(System.lineSeparator());
 	  }
 	  
