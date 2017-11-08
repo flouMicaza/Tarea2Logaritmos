@@ -66,11 +66,47 @@ public class HashTableTest {
     }
     ArrayList<Integer> valores = tree2.busqueda("este$");
     int cont =  valores.size();
+    int primerval=valores.get(0);
+    String valTabla= tree.getTabla()[tree.Hash("prologo$")];
+    
     assertNotNull("Debería haberse insertado",valores);
     assertEquals("debería ser el mismo valor que este",contEste,cont);
+    assertEquals("El value tiene que ser 1",1,primerval);
+    assertNotNull("El valor deberia estar ahi",valTabla);
+    assertEquals("Debe ser prologo$","prologo$",valTabla);
+    
   }
   
+  @Test
+  public void duplicarTablaTest(){
+    tree.insertar(palabras[0], 1);
+    int largoi=tree.getLargo();
+    String elem1 = tree.getTabla()[0];
+
+    String elem2 = tree.getTabla()[1];
+    tree.dublicarTabla();
+    assertEquals("deberia tener el doble de largo ahora", largoi*2,tree.getLargo());
+    assertEquals("Deberia tener los mismos elementos",elem1,tree.getTabla()[0]);
+    assertEquals("Deberia tener los mismos elementos",elem2,tree.getTabla()[1]);
+   
+  }
   
+  @Test
+  public void duplicarValuesTest(){
+    tree.insertar(palabras[0], 1);
+    tree.insertar("holaa", 1);
+    int largoi=tree.getLargo();
+    ArrayList<Integer> elem1 = tree.getValues().obtener(0);
+
+    ArrayList<Integer> elem2 = tree.getValues().obtener(2);
+    tree.dublicarTabla();
+    assertEquals("deberia tener el doble de largo ahora", largoi*2,tree.getLargo());
+    assertEquals("Deberia tener los mismos elementos",elem1,tree.getValues().obtener(0));
+    assertEquals("Deberia tener los mismos elementos","hola",tree.getValues().obtener(1));
+   
+  }
+  
+  /*
   @Test
   public void insertar20Test(){
     for(int i = 0 ; i<10;i++){
@@ -83,5 +119,5 @@ public class HashTableTest {
     int cont =  valores.size();
     assertNotNull("Debería haberse insertado",valores);
     assertEquals("debería ser el mismo valor que este",contEste,cont);
-  }
+  }*/
 }
