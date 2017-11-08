@@ -44,7 +44,7 @@ public class PatriciaNode implements PatriciaNodeI{
     for (PatriciaNodeI node : childs) {
       key = node.getKey();
       len = key.length();
-      if(!key.equals("")){
+      if(!palabra.equals("")){
 	      //Si la primera letra coincide se analizan algunos casos
 		  if(key.charAt(0) == palabra.charAt(0)){
 			//Caso en que la cadena coincida, se hace recurcion en el nodo
@@ -55,16 +55,18 @@ public class PatriciaNode implements PatriciaNodeI{
 		    //Se calcula el prefijo maximo
 		    String prefijo = minPrefijo(palabra, key);
 		    //Se crean lo nuevos nodos
-		    PatriciaNode pNode1 = new PatriciaNode(palabra.substring(prefijo.length(), palabra.length()), (PatriciaNode) node, value);
-		    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length()), (PatriciaNode) node, value);
-		    //Se cambian los hijos de el nodo actual a uno de los nuevos nodos
-		    pNode2.childs.addAll(childs);
 		    PatriciaNode node2 = (PatriciaNode) node;
+		    PatriciaNode pNode1 = new PatriciaNode(palabra.substring(prefijo.length(), palabra.length()), (PatriciaNode) node, value);
+		    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length()), (PatriciaNode) node, node2.appearances.get(0));
+		    //Se cambian los hijos de el nodo actual a uno de los nuevos nodos
+		    pNode2.addChilds(node2.childs);
 		    //Se limpia los hijos de este nodo y se agregan los dos nuevos creados
 		    node2.childs = new ArrayList<PatriciaNodeI>();
 		    node2.childs.add(pNode1);
 		    node2.childs.add(pNode2);
 		    node.setKey(prefijo);
+		    node2.appearances.clear();
+		    return;
 		  }
 		}
       else {
@@ -74,11 +76,18 @@ public class PatriciaNode implements PatriciaNodeI{
     }
     //Se crea el nodo y se inserta en los hjos
     PatriciaNode pNode = new PatriciaNode(palabra, this, value);
-    pNode.addValue(value);
     childs.add(pNode);
   }
   
   
+  private void addChilds(ArrayList<PatriciaNodeI> childs2) {
+    for (PatriciaNodeI node : childs2) {
+	  if(!node.isNullNode()){
+	    this.childs.add(node);
+	  }
+	}
+  }
+
   //Devuelve el prefijo mayor
   private String minPrefijo(String palabra, String key2) {
     int min = (palabra.length() < key2.length())?palabra.length():key2.length();
