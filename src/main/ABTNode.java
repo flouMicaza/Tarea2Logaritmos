@@ -122,11 +122,7 @@ public class ABTNode {
    * @return retorna la llave de este nodo
    */
   public String getKey(){
-    if(this.isLeaf==0){
-      System.out.println("se esta intentando ver una llave de un nodo que no es hoja");
-      return null;
-    }
-    else
+   
       return this.key;
   }
 
@@ -185,8 +181,7 @@ public void insertarNodo(String palabra, int value,int indice) {
  */
 public void crearTrie(String palabra, int value, int indice,String lado) {  
   if(lado=="Center"){
-    System.out.println("el indice en crear trie es:" + indice);
-    System.out.println("la letra a insertar es: " + palabra.charAt(indice));
+    
     this.center=new ABTNode(this,palabra.charAt(indice));
     if(indice==palabra.length()-1){
      //terminamos de agregar palabras, retornamos
