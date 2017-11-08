@@ -44,8 +44,30 @@ public class HashTable {
   }
   
   
+  //funcion que inserta una palabra y un valor al diccionario
+  //si la tabla esta al 40% la duplico y luego inserto. 
   public void insertar(String palabra, int valor){
-    //TODO hacer funcion insertar
+    
+    if(this.llenado==(0.4*this.largo)){
+      this.dublicarTabla();
+    }
+    
+    int indice = Hash(palabra);
+    if(this.tabla[indice]!=null){
+      this.tabla[indice]=palabra;
+      this.valores.setValor(indice, valor);  
+      return;
+    }
+    
+    //mientras no encuentre un espacio vacio sigo
+    while(this.tabla[indice]!=null){
+      indice=(indice+1)%this.largo;
+    }
+    this.tabla[indice]=palabra;
+    this.valores.setValor(indice, valor);  
+    
+    
+    
   }
 
   /**

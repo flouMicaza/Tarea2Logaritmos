@@ -17,6 +17,13 @@ public class Dicc<T> {
       return (T) arreglo[indice];
   }
 
+  //setea un valor dentro de un arraylist
+  public void setValor(int indice, int valor) {
+    ArrayList<Integer> arr = (ArrayList<Integer>)this.arreglo[indice];
+    arr.add(valor);
+  }
+  
+  //setea un valor dentro del arreglo
   public void set(int indice, ArrayList<Integer> valor) {
    this.arreglo[indice]=valor;
   }
