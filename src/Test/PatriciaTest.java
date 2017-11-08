@@ -20,7 +20,7 @@ public class PatriciaTest {
   
   @Test
   public void constructorTest(){
-    assertNotNull("El arbol no dbe ser nulo", tree);
+    assertNotNull("El arbol no debe ser nulo", tree);
   }
   
   @Test
@@ -59,10 +59,6 @@ public class PatriciaTest {
   public void insertarTest4(){
     tree.insertar("perro$", 2);
     tree.insertar("pera$", 3);
-    System.out.println(tree.getRoot().childs);
-    PatriciaNode t = (PatriciaNode)tree.getRoot().childs.get(1);
-    PatriciaNode e = (PatriciaNode)t.childs.get(1);
-    System.out.println(e.childs.get(2).getKey());
     assertEquals("Debe haber 2 nodos colgando de la raiz", 2, tree.getRoot().childs.size());
   }
 
