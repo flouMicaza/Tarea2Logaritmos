@@ -11,4 +11,6 @@ public interface PatriciaNodeI {
   public void insertar(String palabra, int value);
 
   public ArrayList<Integer> buscar(String palabras);
+
+  public boolean isNullNode();
 }
