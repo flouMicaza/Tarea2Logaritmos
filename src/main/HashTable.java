@@ -12,6 +12,7 @@ public class HashTable {
     this.llenado=0;
     this.tabla= new String[largo];
     this.valores=new Dicc<ArrayList<Integer>>(largo);
+    
   }
   
   
@@ -47,27 +48,37 @@ public class HashTable {
   //funcion que inserta una palabra y un valor al diccionario
   //si la tabla esta al 40% la duplico y luego inserto. 
   public void insertar(String palabra, int valor){
-    
+    //si hay un 40% llenado, entonces tengo que ampliar la tabla
     if(this.llenado==(0.4*this.largo)){
       this.dublicarTabla();
     }
     
-    int indice = Hash(palabra);
-    if(this.tabla[indice]!=null){
-      this.tabla[indice]=palabra;
-      this.valores.setValor(indice, valor);  
+    int indice = Hash(palabra); //indice de donde debería ir la palabra
+    
+    //si hay un valor y es el mismo valor q yo, agrego nomas
+    if(this.tabla[indice]!= null && this.tabla[indice].equals(palabra)){
+      this.valores.setValor(indice, valor);  //agrego el valor a la lista de valores
+      return; 
+    }
+    else if(this.tabla[indice]==null){ //si hay un espacio vacio
+      this.tabla[indice]=palabra; //agrego la llave a la tabla
+      this.valores.set(indice, new ArrayList<Integer>()); //creo la lista de valores
+      this.valores.setValor(indice, valor);  //agrego el valor a la lista de valores
       return;
     }
-    
-    //mientras no encuentre un espacio vacio sigo
-    while(this.tabla[indice]!=null){
-      indice=(indice+1)%this.largo;
-    }
-    this.tabla[indice]=palabra;
-    this.valores.setValor(indice, valor);  
-    
-    
-    
+    //si mi espacio esta ocupado, o no encontre mi palabra en ese espacio
+    else{
+      //mientras no encuentre un espacio vacio sigo
+      while(this.tabla[indice]!=null){
+        indice=(indice+1)%this.largo;
+      }
+      
+      //encontre un espacio vacio. 
+      this.tabla[indice]=palabra;
+      this.valores.set(indice, new ArrayList<Integer>());
+      this.valores.setValor(indice, valor);  
+        
+    }    
   }
 
   /**
