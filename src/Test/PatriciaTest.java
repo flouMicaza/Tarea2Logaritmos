@@ -89,7 +89,7 @@ public class PatriciaTest {
     for (int i = 0; i < 100; i++) {
       tree2.insertar(palabras[i], 1);
 	}
-    ArrayList<Integer> valores = tree2.busqueda("xyz$");
+    ArrayList<Integer> valores = tree2.busqueda("estebanquito$");
     assertEquals("Debe ser un array list vacio", 0, valores.size());
   }
   
@@ -98,10 +98,10 @@ public class PatriciaTest {
     for (int i = 2000; i < 7000; i++) {
       tree2.insertar(palabras[i], 1);
 	}
-    tree2.insertar("xyz$", 2);
-    tree2.insertar("xyz$", 4);
-    tree2.insertar("xyz$", 3);
-    ArrayList<Integer> valores = tree2.busqueda("xyz$");
+    tree2.insertar("estebanquito$", 2);
+    tree2.insertar("estebanquito$", 4);
+    tree2.insertar("estebanquito$", 3);
+    ArrayList<Integer> valores = tree2.busqueda("estebanquito$");
     assertEquals("Debe contener 3 veces la palabra", 3, valores.size());
     assertEquals("Debe tener los valores 2 3 y 4", 2, (int)valores.get(0));
     assertEquals("Debe tener los valores 2 3 y 4", 4, (int)valores.get(1));
