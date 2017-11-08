@@ -21,7 +21,7 @@ public class ABT {
    * @return True y lo encuentra, False si no lo encuentra
    */
   public ArrayList<Integer> busqueda(String palabra){
-    return root.busquedaAux(palabra, 0);
+    return root.busqueda(palabra, 0);
   }
   
   /**

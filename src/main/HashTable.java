@@ -28,7 +28,7 @@ public class HashTable {
     }
   }
   
-  public ArrayList<Integer> buscar(String palabra){
+  public ArrayList<Integer> busqueda(String palabra){
     int indice = this.Hash(palabra); //calculamos la posición en la que debería ir
     while(this.tabla[indice]!=null){ //buscamos la palabra en la tabla hasta que ya no hayan palabras.
       if(this.tabla[indice].equals(palabra)){ //si encontramos la palabra que buscamos
