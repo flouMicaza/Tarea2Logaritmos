@@ -55,32 +55,40 @@ public class HashTable extends Arbol {
       this.dublicarTabla();
     }
 
-    int indice = Hash(palabra); // indice de donde deber�a ir la palabra
-
-    // si hay un valor y es el mismo valor q yo, agrego nomas
-    if (this.tabla[indice] != null && this.tabla[indice].equals(palabra)) {
+    int indice = Hash(palabra); // indice de donde deberia ir la palabra
+    
+    //si no hay nada en mi lugar, solo me pongo
+    if(this.tabla[indice]==null){
+      System.out.println("Aqui la tabla esta vacia : " + this.tabla[indice]);
+      this.tabla[indice] = palabra; // agrego la llave a la tabla
+      this.valores.set(indice, new ArrayList<Integer>()); // creo la lista de valores
       this.valores.setValor(indice, valor); // agrego el valor a la lista de valores
+      System.out.println("Ahora la tabla tiene el valor " + palabra + "y el valor es" + this.tabla[indice]);
       return;
-    } else if (this.tabla[indice] == null) { // si hay un espacio vacio
+    }
+    
+    //si esta mi palabra en este lugar
+    else if(this.tabla[indice]!=null && this.tabla[indice].equals(palabra)){
+      //seteo el val en la lista de valores
+      this.valores.setValor(indice,valor);     
+    }
+    //si no hay espaccio  o tengo q buscar mi palabra
+    else{
+      //mientras no haya un espacio vacio
+      while(this.tabla[indice]!=null){
+          //busco mi palabra
+        if(this.tabla[indice]==palabra){
+          this.valores.setValor(indice, valor);
+
+        }
+      }
+      //cuando sale del while es porque ya llego a un espacio vacio entonces creo un nuevo "nodo"
       this.tabla[indice] = palabra; // agrego la llave a la tabla
       this.valores.set(indice, new ArrayList<Integer>()); // creo la lista de valores
       this.valores.setValor(indice, valor); // agrego el valor a la lista de valores
       return;
     }
-    // si mi espacio esta ocupado, o no encontre mi palabra en ese espacio
-    else {
-      // mientras no encuentre un espacio vacio sigo
-      while (this.tabla[indice] != null) {
-        indice = (indice + 1) % this.largo;
-      }
-
-      // encontre un espacio vacio.
-      this.tabla[indice] = palabra;
-      this.valores.set(indice, new ArrayList<Integer>());
-      this.valores.setValor(indice, valor);
-
     }
-  }
 
   /**
    * Funcion de hash que transforma la palabra en un n�mero y luego encuentra su posici�n en el
