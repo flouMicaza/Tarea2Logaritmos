@@ -61,7 +61,7 @@ public class ABTNode {
   
   
   public ArrayList<Integer> busquedaAux(String palabra,int indice){
-	 //TODO revisar si los indices estan bien contados cuando se retorna.  
+	   
 	 
     //si la etiqueda del nodo que estoy visitando es igual a la letra que estoy buscando
     //busco en el del centro

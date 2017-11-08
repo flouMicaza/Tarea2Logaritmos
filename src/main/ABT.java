@@ -8,7 +8,7 @@ public class ABT {
   
   //se crea un arbol conociendo la primera palabra
   public ABT(String palabra,int value){
-    //TODO crear bien el constructor del Arbol
+    
     this.root=new ABTNode(null,palabra.charAt(0));
     
     //se insertan todas las letras de la palabra en el nodo, desde la segunda letra
