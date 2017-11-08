@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-public class HashTable {
+public class HashTable extends Arbol {
   int largo; //largo de la tabla
   int llenado;
   String[] tabla; //tabla con las llaves
@@ -30,7 +30,7 @@ public class HashTable {
   }
   
   public ArrayList<Integer> busqueda(String palabra){
-    int indice = this.Hash(palabra); //calculamos la posición en la que debería ir
+    int indice = this.Hash(palabra); //calculamos la posiciï¿½n en la que deberï¿½a ir
     while(this.tabla[indice]!=null){ //buscamos la palabra en la tabla hasta que ya no hayan palabras.
       if(this.tabla[indice].equals(palabra)){ //si encontramos la palabra que buscamos
         //encontre la palabra
@@ -53,7 +53,7 @@ public class HashTable {
       this.dublicarTabla();
     }
     
-    int indice = Hash(palabra); //indice de donde debería ir la palabra
+    int indice = Hash(palabra); //indice de donde deberï¿½a ir la palabra
     
     //si hay un valor y es el mismo valor q yo, agrego nomas
     if(this.tabla[indice]!= null && this.tabla[indice].equals(palabra)){
@@ -82,9 +82,9 @@ public class HashTable {
   }
 
   /**
-   * Funcion de hash que transforma la palabra en un número y luego encuentra su posición en el arreglo
+   * Funcion de hash que transforma la palabra en un nï¿½mero y luego encuentra su posiciï¿½n en el arreglo
    * @param a = palabra a insertar
-   * @return la posición en el arreglo
+   * @return la posiciï¿½n en el arreglo
    */
   public int Hash(String a){
     int stringsize = a.length();

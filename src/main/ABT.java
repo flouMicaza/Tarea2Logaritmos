@@ -3,7 +3,7 @@ package main;
 import java.util.ArrayList;
 
 //Arbol de busqueda ternario
-public class ABT {
+public class ABT extends Arbol{
   public ABTNode root; 
   
   //se crea un arbol conociendo la primera palabra
@@ -25,7 +25,7 @@ public class ABT {
   }
   
   /**
-   * Método que inserta una keyword y un valor
+   * Mï¿½todo que inserta una keyword y un valor
    * @param palabra string keyword
    * @param value valor asociado a la llave
    * 

@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-public class Patricia {
+public class Patricia extends Arbol {
   PatriciaNode root;
   
   
