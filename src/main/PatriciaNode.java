@@ -12,7 +12,7 @@ public class PatriciaNode implements PatriciaNodeI{
   public PatriciaNode(String key, PatriciaNode father, int value){
 	this.key = key;
 	this.appearances = new ArrayList<Integer>();
-	if(value != 0)
+	if(value != -1)
 	  this.addValue(value);
 	this.childs = new ArrayList<PatriciaNodeI>();
 	childs.add(new NullPatriciaNode(this));
@@ -32,7 +32,8 @@ public class PatriciaNode implements PatriciaNodeI{
 	for (PatriciaNodeI node : childs) {
 	  len = node.getKey().length();
 	  //Si coincide la llave con el siguiente prefijo de la palabra entonces hacemos recursion
-      if (node.getKey().equals(palabra.substring(0, len ))) {
+	  //TODO ojo con el len, puede ser mayor que el largo de la palabra
+      if (len <= palabra.length() && node.getKey().equals(palabra.substring(0, len))) {
         return node.buscar(palabra.substring(len, palabra.length()));
 	  }
 	}
@@ -58,11 +59,12 @@ public class PatriciaNode implements PatriciaNodeI{
 		    //Se crean lo nuevos nodos
 		    PatriciaNode node2 = (PatriciaNode) node;
 		    PatriciaNode pNode1 = new PatriciaNode(palabra.substring(prefijo.length(), palabra.length()), (PatriciaNode) node, value);
-		    int app = (node2.appearances.size()==0)?-1:0;
-		    //TODO falta arreglar esta cosa de las apariciones justo arriba y algo con l abusqueda de la palabra este$
-		    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length()), (PatriciaNode) node, app);
+		    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length()), (PatriciaNode) node, -1);
 		    //Se cambian los hijos de el nodo actual a uno de los nuevos nodos
 		    pNode2.addChilds(node2.childs);
+		    if (node2.appearances.size() > 0){
+		      pNode2.addAppearances(node2.appearances);
+		    }
 		    //Se limpia los hijos de este nodo y se agregan los dos nuevos creados
 		    node2.childs = new ArrayList<PatriciaNodeI>();
 		    node2.childs.add(pNode1);
@@ -84,6 +86,12 @@ public class PatriciaNode implements PatriciaNodeI{
   }
   
   
+  private void addAppearances(ArrayList<Integer> appearances2) {
+    for (Integer app : appearances2) {
+	  this.appearances.add(app);
+	}
+  }
+
   private void addChilds(ArrayList<PatriciaNodeI> childs2) {
     for (PatriciaNodeI node : childs2) {
 	  if(!node.isNullNode()){

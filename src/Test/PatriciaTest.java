@@ -71,11 +71,8 @@ public class PatriciaTest {
   
   @Test
   public void insertarMuchosTest(){
-    for(int i = 0 ; i<344;i++){
+    for(int i = 0 ; i<palabras.length; i++){
       tree2.insertar(palabras[i], 1);
-      if(i == 342){
-    	  System.out.println("");
-      }
       System.out.println(palabras[i]);
     if(palabras[i]=="este$"){
       contEste++;
@@ -83,8 +80,32 @@ public class PatriciaTest {
   }
     ArrayList<Integer> valores = tree2.busqueda("este$");
     int cont =  valores.size();
-   // assertNotNull("Debería haberse insertado",valores);
-   // assertEquals("debería ser el mismo valor que este",contEste,cont);
+    assertNotNull("Debería haberse insertado",valores);
+    assertEquals("debería ser el mismo valor que este",contEste,cont);
+  }
+  
+  @Test
+  public void busquedaInfructuosaTest(){
+    for (int i = 0; i < 100; i++) {
+      tree2.insertar(palabras[i], 1);
+	}
+    ArrayList<Integer> valores = tree2.busqueda("xyz$");
+    assertEquals("Debe ser un array list vacio", 0, valores.size());
+  }
+  
+  @Test
+  public void busquedaTest(){
+    for (int i = 2000; i < 7000; i++) {
+      tree2.insertar(palabras[i], 1);
+	}
+    tree2.insertar("xyz$", 2);
+    tree2.insertar("xyz$", 4);
+    tree2.insertar("xyz$", 3);
+    ArrayList<Integer> valores = tree2.busqueda("xyz$");
+    assertEquals("Debe contener 3 veces la palabra", 3, valores.size());
+    assertEquals("Debe tener los valores 2 3 y 4", 2, (int)valores.get(0));
+    assertEquals("Debe tener los valores 2 3 y 4", 4, (int)valores.get(1));
+    assertEquals("Debe tener los valores 2 3 y 4", 3, (int)valores.get(2));
   }
 
 }
