@@ -12,7 +12,8 @@ public class PatriciaNode implements PatriciaNodeI{
   public PatriciaNode(String key, PatriciaNode father, int value){
 	this.key = key;
 	this.appearances = new ArrayList<Integer>();
-	this.addValue(value);
+	if(value != 0)
+	  this.addValue(value);
 	this.childs = new ArrayList<PatriciaNodeI>();
 	childs.add(new NullPatriciaNode(this));
 	this.father = father;
@@ -44,7 +45,7 @@ public class PatriciaNode implements PatriciaNodeI{
     for (PatriciaNodeI node : childs) {
       key = node.getKey();
       len = key.length();
-      if(!palabra.equals("")){
+      if(!palabra.equals("") && !node.isNullNode()){
 	      //Si la primera letra coincide se analizan algunos casos
 		  if(key.charAt(0) == palabra.charAt(0)){
 			//Caso en que la cadena coincida, se hace recurcion en el nodo
@@ -57,7 +58,9 @@ public class PatriciaNode implements PatriciaNodeI{
 		    //Se crean lo nuevos nodos
 		    PatriciaNode node2 = (PatriciaNode) node;
 		    PatriciaNode pNode1 = new PatriciaNode(palabra.substring(prefijo.length(), palabra.length()), (PatriciaNode) node, value);
-		    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length()), (PatriciaNode) node, node2.appearances.get(0));
+		    int app = (node2.appearances.size()==0)?-1:0;
+		    //TODO falta arreglar esta cosa de las apariciones justo arriba y algo con l abusqueda de la palabra este$
+		    PatriciaNode pNode2 = new PatriciaNode(key.substring(prefijo.length(), key.length()), (PatriciaNode) node, app);
 		    //Se cambian los hijos de el nodo actual a uno de los nuevos nodos
 		    pNode2.addChilds(node2.childs);
 		    //Se limpia los hijos de este nodo y se agregan los dos nuevos creados
@@ -72,6 +75,7 @@ public class PatriciaNode implements PatriciaNodeI{
       else {
         if(node.isNullNode())
           node.insertar(palabra, value);
+        return;
       }
     }
     //Se crea el nodo y se inserta en los hjos
