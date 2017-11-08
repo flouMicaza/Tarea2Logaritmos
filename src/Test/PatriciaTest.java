@@ -54,5 +54,16 @@ public class PatriciaTest {
     tree.insertar("ro$", 2);
     assertEquals("La nueva key debe ser ro", "ro", tree.getRoot().childs.get(0).getKey());
   }
+  
+  @Test
+  public void insertarTest4(){
+    tree.insertar("perro$", 2);
+    tree.insertar("pera$", 3);
+    System.out.println(tree.getRoot().childs);
+    PatriciaNode t = (PatriciaNode)tree.getRoot().childs.get(1);
+    PatriciaNode e = (PatriciaNode)t.childs.get(1);
+    System.out.println(e.childs.get(2).getKey());
+    assertEquals("Debe haber 2 nodos colgando de la raiz", 2, tree.getRoot().childs.size());
+  }
 
 }
