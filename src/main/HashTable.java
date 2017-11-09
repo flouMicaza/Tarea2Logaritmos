@@ -33,7 +33,6 @@ public class HashTable extends Arbol {
 
   public ArrayList<Integer> busqueda(String palabra) {
     int indice = this.Hash(palabra); // calculamos la posicion en la que deberia ir
-    System.out.println("la palabra "+ palabra+ "tiene hash" + indice);
     while (this.tabla[indice] != null) { // buscamos la palabra en la tabla hasta que ya no hayan
                                          // palabras.
       if (this.tabla[indice].equals(palabra)) { // si encontramos la palabra que buscamos
