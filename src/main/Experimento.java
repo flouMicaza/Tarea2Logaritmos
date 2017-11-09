@@ -77,7 +77,7 @@ public class Experimento {
 	    System.out.println(palabras.length);
 	    int i = 0;
 	    ABT arbolABT = new ABT(palabras[0],i);
-	    HashTable arbolHT = new HashTable();
+	    HashTable arbolHT = new HashTable(palabras.length);
 	    arbolHT.insertar(palabras[0], i);
 	    Patricia arbolPT = new Patricia(palabras[0],i);
 	    i++;

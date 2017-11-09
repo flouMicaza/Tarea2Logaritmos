@@ -18,9 +18,10 @@ public class HashTableTest {
   
   @Before
   public void settings(){
-    tree = new HashTable();
+    tree = new HashTable(palabras.length);
+    
     tree.insertar("as$", 1);
-    tree2 = new HashTable();    
+    tree2 = new HashTable(palabras.length);    
   }
   
   @Test
@@ -44,5 +45,72 @@ public class HashTableTest {
   }
   
   
+  @Test
+  public void insertar1(){
+    tree.insertar("prologo$", 1);
+    int hash = tree.Hash("prologo$");
+    String[] tavla = tree.getTabla();
+    String palabra = tavla[hash];
+    assertNotNull("la palabra debe estar creada",palabra);
+    assertEquals("La palabra debe ser prologo$","prologo$",palabra);
+  }
   
+  @Test
+  public void buscar1(){
+    ArrayList<Integer> lista = tree.busqueda("as$");
+    assertEquals("deberia tener tamaño 1", 1 , lista.size());
+    
+  }
+  
+  @Test
+  public void buscar2(){
+    //insertamos otro as, el tamaño deberia ser 2 del resultado
+    tree.insertar("as$", 2);
+    ArrayList<Integer> lista = tree.busqueda("as$");
+    assertEquals("deberia tener tamaño 2", 2 , lista.size());
+  }
+  
+  @Test
+  public void insertarMasDe8(){
+    int cont=0;
+    for (int i = 0; i <10; i++) {
+      
+      tree2.insertar(palabras[i], 1);
+    }
+    for (int i = 0; i <10; i++) {
+      ArrayList<Integer> lista = tree2.busqueda(palabras[i]);
+      System.out.println("palabra: " + palabras[i] + "apariciones: " + lista.size());
+      cont+=lista.size();
+       
+    }
+    
+    assertEquals("me deberia da la suma de las apariciones = 12",12,cont);
+    
+  }
+  
+  
+  @Test
+  public void insertarMuchos(){
+    
+    for (int i = 0; i <palabras.length; i++) {
+      
+      tree2.insertar(palabras[i], 1);
+    }
+    
+    int cnt = 0;
+    for (int i = 0; i < palabras.length; i++) {
+        int c = tree2.busqueda(palabras[i]).size();
+        if (c==0){ //mala insercion
+            cnt=i;
+        }
+    }
+    System.out.println(cnt);
+    assertEquals("el contador debe ser cero, por las palabras mal insertadas",0,cnt);
+    
+  }
+    
+    
 }
+  //"prologo$","1$","de$","los$","hobbits$","este$","libro$","trata$","principalmente$","de$"
+
+
