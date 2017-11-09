@@ -26,7 +26,7 @@ public class Experimento {
 	    	  	System.out.println(i);
 	      }
 	    }
-	    printerABTTotal.write(Float.toString(timeABT) + " para " + n + " palabras");
+	    printerABTTotal.write(Float.toString(timeABT));
 		printerABTTotal.write(System.lineSeparator());
 	  }
 	
@@ -45,7 +45,7 @@ public class Experimento {
 		    	  	System.out.println(i);
 		      }
 		  }
-		  printerABTTotal.write(Float.toString(timeABT) + " para " + n + " palabras");
+		  printerABTTotal.write(Float.toString(timeABT));
 		  printerABTTotal.write(System.lineSeparator());
 	  }
 
@@ -67,10 +67,11 @@ public class Experimento {
 	    PrintWriter printerHTTotal2 = null; 
 	  
 	    //List<Integer> indexes = Arrays.asList(1000000);
-	    List<Integer> indexes = Arrays.asList(1024, 4096, 16384, 65536, 262144, 1000000);
+	    //List<Integer> indexes = Arrays.asList(1024, 4096, 16384, 65536, 262144);
+	    List<Integer> indexes = Arrays.asList(1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288);
 	    //List<Integer> indexes = Arrays.asList(1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576);
-	    String file = new Scanner(new File("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/input.txt")).useDelimiter("\\Z").next();
-	    String file2 = new Scanner(new File("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/busquedas.txt")).useDelimiter("\\Z").next();
+	    String file = new Scanner(new File("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/busquedas.txt")).useDelimiter("\\Z").next();
+	    String file2 = new Scanner(new File("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/input.txt")).useDelimiter("\\Z").next();
 	    String[] palabras = file.split(" ");
 	    String[] busqueda = file2.split(" ");
 	    System.out.println(palabras.length);
