@@ -8,7 +8,10 @@ public class HashTable extends Arbol {
   String[] tabla; // tabla con las llaves
   Dicc<ArrayList<Integer>> valores; // lista de los valores
 
-  public HashTable(int largo) {
+
+  
+
+  public HashTable(int length) {
     this.largo = largo*10/4; //*100/40 
     this.llenado = 0;
     this.tabla = new String[largo];
@@ -16,20 +19,8 @@ public class HashTable extends Arbol {
 
   }
 
-/*
-  public void dublicarTabla() {
-    this.largo = 2 * this.largo; // duplicamos el largo
-    String[] tabla1 = this.tabla; // guardamos una copia de la tabla actual
-    Dicc<ArrayList<Integer>> valores1 = this.valores;
-    this.tabla = new String[largo]; // agrandamos la tabla
-    this.valores = new Dicc<ArrayList<Integer>>(largo);
-    // se recorre la tabla actual y se van copiando los valores a la nueva tabla
-    for (int i = 0; i < tabla1.length; i++) {
-      int hash = this.Hash(tabla1[i]);
-      this.tabla[hash] = tabla1[i];
-      this.valores.set(hash, valores1.obtener(i));
-    }
-  }*/
+
+
 
   public ArrayList<Integer> busqueda(String palabra) {
     int indice = this.Hash(palabra); // calculamos la posicion en la que deberia ir
