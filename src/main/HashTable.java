@@ -24,7 +24,6 @@ public class HashTable extends Arbol {
 
   public ArrayList<Integer> busqueda(String palabra) {
     int indice = this.Hash(palabra); // calculamos la posicion en la que deberia ir
-    System.out.println("la palabra "+ palabra+ "tiene hash" + indice);
     while (this.tabla[indice] != null) { // buscamos la palabra en la tabla hasta que ya no hayan
                                          // palabras.
       if (this.tabla[indice].equals(palabra)) { // si encontramos la palabra que buscamos
@@ -68,7 +67,7 @@ public class HashTable extends Arbol {
       //mientras no haya un espacio vacio
       while(this.tabla[indice]!=null){
           //busco mi palabra
-        if(this.tabla[indice]==palabra){
+        if(this.tabla[indice].equals(palabra)){
           this.valores.setValor(indice, valor);
           return;
         }
@@ -93,12 +92,28 @@ public class HashTable extends Arbol {
    * @return la posicion en el arreglo
    */
   public int Hash(String a) {
-    int stringsize = a.length();
-    int hashval, j;
-    hashval = (int) a.charAt(0);
-    for (j = 1; j < stringsize; j++)
-      hashval += (int) a.charAt(j);
-    return (hashval % this.largo); /* suponiendo que tablesize es global */
+	  /*
+	  int h = hash;
+	  if (h == 0) {
+		  int off = offset;
+		  char val[] = value;
+		  int len = count;
+		  
+		  for (int i = 0; i < len; i++) {
+			  h = 31*h+val[off++];
+		  }
+		  hash =h;
+	  }
+	  return h;
+	  */
+	  int stringsize = a.length();
+    	  int hashval = 11;
+      int j;
+    	  hashval = (int) a.charAt(0);
+    	  for (j = 1; j < stringsize; j++)
+      	//hashval *= 31;
+      	hashval += (int) a.charAt(j);
+    	  return (hashval % this.largo);
   }
 
 
