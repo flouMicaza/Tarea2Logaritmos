@@ -12,7 +12,7 @@ public class HashTable extends Arbol {
   
 
   public HashTable(int length) {
-    this.largo = largo*10/4; //*100/40 
+    this.largo = length*10/4; //*100/40 
     this.llenado = 0;
     this.tabla = new String[largo];
     this.valores = new Dicc<ArrayList<Integer>>(largo);
@@ -107,13 +107,15 @@ public class HashTable extends Arbol {
 	  return h;
 	  */
 	  int stringsize = a.length();
-    	  int hashval = 11;
+      int hashval = 11;
       int j;
-    	  hashval = (int) a.charAt(0);
-    	  for (j = 1; j < stringsize; j++)
+      hashval = (int) a.charAt(0);
+      for (j = 1; j < stringsize; j++){
       	//hashval *= 31;
       	hashval += (int) a.charAt(j);
-    	  return (hashval % this.largo);
+    	System.out.println(this.largo);
+      }
+      return (hashval % this.largo);
   }
 
 
