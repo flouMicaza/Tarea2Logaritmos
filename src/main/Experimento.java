@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Experimento {
+	  static String directorio = "/Users/sapel/workspace/Tarea2Logaritmos/Experimentos/";
 
 	  public static void generar(int n, int i, String[] palabras, Arbol arbol, PrintWriter printerABT, PrintWriter printerABTTotal){
 	    float timeABT = 0;
@@ -22,9 +24,6 @@ public class Experimento {
 	      printerABT.write(Double.toString(currentTime));
 		  printerABT.write(System.lineSeparator());
 	      i++;
-	      if (i%10000 == 0) {
-	    	  	System.out.println(i);
-	      }
 	    }
 	    printerABTTotal.write(Float.toString(timeABT));
 		printerABTTotal.write(System.lineSeparator());
@@ -41,9 +40,6 @@ public class Experimento {
 		      printerABT.write(Double.toString(currentTime));
 			  printerABT.write(System.lineSeparator());
 		      i++;
-		      if (i%10000 == 0) {
-		    	  	System.out.println(i);
-		      }
 		  }
 		  printerABTTotal.write(Float.toString(timeABT));
 		  printerABTTotal.write(System.lineSeparator());
@@ -70,17 +66,17 @@ public class Experimento {
 	    //List<Integer> indexes = Arrays.asList(1024, 4096, 16384, 65536, 262144);
 	    List<Integer> indexes = Arrays.asList(1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288);
 	    //List<Integer> indexes = Arrays.asList(1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576);
-	    String file = new Scanner(new File("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/busquedas.txt")).useDelimiter("\\Z").next();
-	    String file2 = new Scanner(new File("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/input.txt")).useDelimiter("\\Z").next();
+	    String file = new Scanner(new File(directorio + "input.txt")).useDelimiter("\\Z").next();
+	    String file2 = new Scanner(new File(directorio + "busquedas.txt")).useDelimiter("\\Z").next();
 	    String[] palabras = file.split(" ");
 	    String[] busqueda = file2.split(" ");
 	    System.out.println(palabras.length);
-		printerABTTotal1 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/ABTInsertar.txt", "UTF-8");
-		printerABTTotal2 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/ABTBuscar.txt", "UTF-8");
-		printerPTTotal1 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/PTInsertar.txt", "UTF-8");
-		printerPTTotal2 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/PTBuscar.txt", "UTF-8");
-		printerHTTotal1 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/HTInsertar.txt", "UTF-8");
-		printerHTTotal2 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/HTBuscar.txt", "UTF-8");
+		printerABTTotal1 = new PrintWriter(directorio + "ABTInsertar.txt", "UTF-8");
+		printerABTTotal2 = new PrintWriter(directorio + "ABTBuscar.txt", "UTF-8");
+		printerPTTotal1 = new PrintWriter(directorio + "PTInsertar.txt", "UTF-8");
+		printerPTTotal2 = new PrintWriter(directorio + "PTBuscar.txt", "UTF-8");
+		printerHTTotal1 = new PrintWriter(directorio + "HTInsertar.txt", "UTF-8");
+		printerHTTotal2 = new PrintWriter(directorio + "HTBuscar.txt", "UTF-8");
 	    for (Integer each: indexes) {
 		    	try {
 		    		int i = 0;
@@ -88,24 +84,27 @@ public class Experimento {
 		    	    HashTable arbolHT = new HashTable(palabras.length);
 		    	    arbolHT.insertar(palabras[0], i);
 		    	    Patricia arbolPT = new Patricia(palabras[0],i);
+		    	    ABT arbolABT2 = new ABT(palabras[0],i);
 		    	    i++;
-		    		printerABT1 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/ABTInsertar" + each + ".txt", "UTF-8");
-		    		printerABT2 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/ABTBuscar" + each + ".txt", "UTF-8");
-		    		printerPT1 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/PTInsertar" + each + ".txt", "UTF-8");
-		    		printerPT2 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/PTBuscar" + each + ".txt", "UTF-8");
-		    		printerHT1 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/HTInsertar" + each + ".txt", "UTF-8");
-		    		printerHT2 = new PrintWriter("/Users/user/Desktop/Tarea2Logaritmos/Experimentos/HTBuscar" + each + ".txt", "UTF-8");
-		    		System.out.println("Se ha empezado la inserciÃ³n en ABT con " + each + " palabras");
+		    		printerABT1 = new PrintWriter(directorio + "ABTInsertar" + each + ".txt", "UTF-8");
+		    		printerABT2 = new PrintWriter(directorio + "ABTBuscar" + each + ".txt", "UTF-8");
+		    		printerPT1 = new PrintWriter(directorio + "PTInsertar" + each + ".txt", "UTF-8");
+		    		printerPT2 = new PrintWriter(directorio + "PTBuscar" + each + ".txt", "UTF-8");
+		    		printerHT1 = new PrintWriter(directorio + "HTInsertar" + each + ".txt", "UTF-8");
+		    		printerHT2 = new PrintWriter(directorio + "HTBuscar" + each + ".txt", "UTF-8");
+		    		System.out.println("Se está empezando la inserción de " + each + " palabras en ABT1");
 		    		generar(each, i, palabras, arbolABT, printerABT1, printerABTTotal1);
-		    		System.out.println("Se ha empezado la inserciÃ³n en PT con " + each + " palabras");
+		    		System.out.println("Se está empezando la inserción de " + each + " palabras en ABT2");
+		    		generar(each, i, busqueda, arbolABT2, printerABT1, printerABTTotal1);
+		    		System.out.println("Se está empezando la inserción de " + each + " palabras en PT");
 		    		generar(each, i, palabras, arbolPT, printerPT1, printerPTTotal1);
-		    		System.out.println("Se ha empezado la inserciÃ³n en HT con " + each + " palabras");
+		    		System.out.println("Se está empezando la inserción de " + each + " palabras en HT");
 		    		generar(each, i, palabras, arbolHT, printerHT1, printerHTTotal1);
-		    		System.out.println("Se ha empezado la bÃºsqueda en ABT con " + each + " palabras");
+		    		System.out.println("Se está empezando la búsqueda de " + each + " palabras en ABT");
 		    		buscar(each, i, busqueda, arbolABT, printerABT2, printerABTTotal2);
-		    		System.out.println("Se ha empezado la bÃºsqueda en PT con " + each + " palabras");
+		    		System.out.println("Se está empezando la búsqueda de " + each + " palabras en PT");
 		    		buscar(each, i, busqueda, arbolPT, printerPT2, printerPTTotal2);
-		    		System.out.println("Se ha empezado la bÃºsqueda en HT con " + each + " palabras");
+		    		System.out.println("Se está empezando la búsqueda de " + each + " palabras en HT");
 		    		buscar(each, i, busqueda, arbolHT, printerHT2, printerHTTotal2);
 		    		printerABT1.close();
 		    		printerABT2.close();
@@ -113,6 +112,9 @@ public class Experimento {
 		    		printerPT2.close();
 		    		printerHT1.close();
 		    		printerHT2.close();
+		    		if (each == 524288){
+		    		    System.out.println(similitud(palabras, busqueda,arbolABT,arbolABT2));
+		    		}
 		    	}
 		    	catch (Exception e) {}
 	    }
@@ -123,5 +125,34 @@ public class Experimento {
 		printerPTTotal2.close();
 		printerHTTotal1.close();
 		printerHTTotal2.close();
+	}
+
+	private static double similitud(String[] palabras, String[] busqueda, ABT arbolABT, ABT arbol2) {
+	  return 1 - count(palabras, busqueda, arbolABT, arbol2)*1.0/(2*524288);
+	}
+
+	private static double count(String[] palabras, String[] busqueda, ABT arbolABT, ABT arbol2) {
+		ArrayList<String> l = new ArrayList<String>();
+		double cnt = 0;
+		System.out.println("primer texto");
+		for (int i = 0; i < 524288; i++) {
+			if(i%10000 == 0)
+				System.out.println(i);
+			if(!l.contains(busqueda[i])){
+				l.add(busqueda[i]);
+			}
+		}
+		System.out.println("Sgundo texto");
+		for (int i = 0; i < 524288; i++) {
+			if(i%10000==0)
+				System.out.println(i);
+			if(!l.contains(palabras[i])){
+				l.add(palabras[i]);
+			}
+		}
+		for (String word : l) {
+			cnt += Math.abs(arbolABT.busqueda(word).size() - arbol2.busqueda(word).size());
+		}
+		return cnt;
 	}
 }
