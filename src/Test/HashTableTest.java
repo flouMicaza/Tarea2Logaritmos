@@ -47,12 +47,12 @@ public class HashTableTest {
   
   @Test
   public void insertar1(){
-    tree.insertar("prologo$", 1);
-    int hash = tree.Hash("prologo$");
+    tree.insertar("holiwis$", 1);
+    int hash = tree.Hash("holiwis$");
     String[] tavla = tree.getTabla();
     String palabra = tavla[hash];
     assertNotNull("la palabra debe estar creada",palabra);
-    assertEquals("La palabra debe ser prologo$","prologo$",palabra);
+    assertEquals("La palabra debe ser prologo$","holiwis$",palabra);
   }
   
   @Test
@@ -79,7 +79,6 @@ public class HashTableTest {
     }
     for (int i = 0; i <10; i++) {
       ArrayList<Integer> lista = tree2.busqueda(palabras[i]);
-      System.out.println("palabra: " + palabras[i] + "apariciones: " + lista.size());
       cont+=lista.size();
        
     }

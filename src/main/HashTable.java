@@ -92,20 +92,21 @@ public class HashTable extends Arbol {
    * @return la posicion en el arreglo
    */
   public int Hash(String a) {
-	  /*
-	  int h = hash;
-	  if (h == 0) {
-		  int off = offset;
-		  char val[] = value;
-		  int len = count;
+	  
+	  int h = 11;
+	  
+		  int off = 0;
+		  String val = a;
+		  int len = a.length();
 		  
 		  for (int i = 0; i < len; i++) {
-			  h = 31*h+val[off++];
+			  h = 31*h+(int)val.charAt(off++);
 		  }
-		  hash =h;
-	  }
-	  return h;
-	  */
+		 
+	
+	  return Math.abs(h%this.largo);
+	  
+    /*
 	  int stringsize = a.length();
       int hashval = 11;
       int j;
@@ -116,6 +117,7 @@ public class HashTable extends Arbol {
     	System.out.println(this.largo);
       }
       return (hashval % this.largo);
+      */
   }
 
 
